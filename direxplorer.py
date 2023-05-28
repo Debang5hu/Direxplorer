@@ -40,8 +40,10 @@ def directory_search(address,wordlist):
         for x in newaddress.split("\n"):   
             dir=(address + "/" + x)
             response=requests.get("{}".format(dir))
-            #if(response.status_code==200):
-            print( "/" + x + "  " + "-> "+ "status: " + str(response.status_code) )
+            if(response.status_code==200):
+                print("\033[0;32m", "/" + x + "  " + "-> "+ "status: " + str(response.status_code) )
+            else:
+                print("\033[0m", "/" + x + "  " + "-> "+ "status: " + str(response.status_code) )
 
 if __name__=="__main__":
     clearscreen()
