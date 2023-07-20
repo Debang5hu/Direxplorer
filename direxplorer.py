@@ -21,6 +21,8 @@ def directory_search(address,wordlist):
                 response=requests.get("{}".format(dir))
                 if(response.status_code==200) or (response.status_code==301):
                         print("\033[0;32m", "/" + x + "  " + "-> "+ "status: " + str(response.status_code) )
+                else:
+                        print("\033[0m", "/" + x + "  " + "-> "+ "status: " + str(response.status_code) )
             except:
                  pass
 
