@@ -1,6 +1,6 @@
 <h3>Direxplorer</h3>  
 
-A Web Directory scanner made in <h3>Python</h3>  
+A Web Directory scanner made in Python  
 
 Getting started
 
@@ -9,6 +9,8 @@ It works well with small wordlists (about 14000 words);
 
 
 ![Screenshot (47)](https://github.com/Debang5hu/Direxplorer/assets/114200360/09394c8c-0439-4200-bace-4aa6aad737a5)  
+![Screenshot (48)](https://github.com/Debang5hu/Direxplorer/assets/114200360/1d3d4732-e9ea-4cc3-b187-3b4b4b93e508)  
+
 
 
 <h3>Next update:</h3>  
@@ -23,7 +25,7 @@ Python v3.11.1
 PS: you need python 3.x to compile direxplorer  
 
 ========================================================  
-========================================================
+=====================================
 <h3>Installing</h3>  
 
 Linux:  
@@ -41,7 +43,7 @@ pip install -r requirements.txt
 python3 direxplorer.py  
 
 ============================================  
-============================================  
+==============================
 
 Termux:  
 =========  
@@ -65,7 +67,7 @@ pip install -r requirements.txt
 python3 direxplorer.py  
 
 ====================================================  
-=====================================================  
+=================================  
 
 windows:  
 =========  
@@ -84,6 +86,9 @@ cd Direxplorer
 
 #to run the script  
 python direxplorer.py  
+
+======================================================  
+======================  
 
 
 <h3>Demo:</h3>  
