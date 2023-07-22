@@ -1,5 +1,3 @@
-
-https://github.com/Debang5hu/Direxplorer/assets/114200360/f1a5d330-288c-4028-bf32-374cee712b84
 <h3>Direxplorer</h3>  
 
 A Web Directory scanner made in Python  
