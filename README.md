@@ -1,3 +1,5 @@
+
+https://github.com/Debang5hu/Direxplorer/assets/114200360/f1a5d330-288c-4028-bf32-374cee712b84
 <h3>Direxplorer</h3>  
 
 A Web Directory scanner made in Python  
@@ -93,13 +95,13 @@ python direxplorer.py
 
 <h3>Demo:</h3>  
 
-https://github.com/Debang5hu/Direxplorer/assets/114200360/6bc812aa-01cf-449b-882a-d357088e7d25
 
 
+https://github.com/Debang5hu/Direxplorer/assets/114200360/10203622-ad83-4dec-9aef-1d0752a9f132  
 
 
+left one: Direxplorer(took about 30 seconds to scan the entire wordlists)  
+right one: Gobuster  
 
-
-
-
+Just give Direxplorer a try will love it
 
