@@ -101,5 +101,7 @@ https://github.com/Debang5hu/Direxplorer/assets/114200360/10203622-ad83-4dec-9ae
 left one: Direxplorer(took about 30 seconds to scan the entire wordlists)  
 right one: Gobuster  
 
-PS:Even I use Gobuster but give Direxplorer a try will love it
+PS:I use both of them  
+
+Give Direxplorer a try will love it
 
