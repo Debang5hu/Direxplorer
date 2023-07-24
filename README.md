@@ -4,7 +4,7 @@ A Web Directory scanner made in Python
 
 Getting started
 
-There are several directory fuzzer out there like Gobuster,Dirb etc, but Direxplorer is faster one out of other directory scanner/fuzzer.  
+Direxplorer is fast as compared to other web directory scanner/fuzzer.  
 It works well with small wordlists (about 14000 words);  
 
 
@@ -101,5 +101,5 @@ https://github.com/Debang5hu/Direxplorer/assets/114200360/10203622-ad83-4dec-9ae
 left one: Direxplorer(took about 30 seconds to scan the entire wordlists)  
 right one: Gobuster  
 
-Just give Direxplorer a try will love it
+PS:Even I use Gobuster but give Direxplorer a try will love it
 
