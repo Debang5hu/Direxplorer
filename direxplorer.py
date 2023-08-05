@@ -43,8 +43,6 @@ async def directory_search(address,wordlist):
     for x,y in zip(urllist,responses):
         if y in [200,301]:
             print("\033[0;32m",x , " " + "-> " + "status: " , y ,"\033[00m")
-        if y == 403:
-            print("\033[91m",x , " " + "-> " + "status: " , y ,"\033[00m")
     print('''
 ==========================================================================================
        DIRECTORY FUZZING COMPLETED
