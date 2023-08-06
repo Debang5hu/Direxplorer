@@ -17,8 +17,6 @@ It works well with small wordlists (about 14000 words);
 
 1.In the next update I will fix the error handling with large wordlists  
 
-2.Will add the  Command Line Arguments features  
-
 
 Built with:  
 Python v3.11.1  
