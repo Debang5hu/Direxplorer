@@ -1,3 +1,5 @@
+#!/bin/bash/python3
+
 try:
     import platform
     import os,sys,getopt
@@ -21,7 +23,7 @@ async def fetch_response_status(session,url):
             return response.status
     except:
         print("\033[1;31m[!] check the URL\033[00m")
-        exit(0)
+        return
 
 
 async def directory_search(address,wordlist):
@@ -36,16 +38,25 @@ async def directory_search(address,wordlist):
                 except:
                     pass
     except:
-        print("\033[1;31m[!] check the Wordlist file\033[00m")
+        print("\033[1;31m[!] check the Path of the Wordlist file\033[00m")
+        return
+    
     async with aiohttp.ClientSession() as session:
         search=[fetch_response_status(session,url) for url in urllist]
         responses=await asyncio.gather(*search)
+
     
     for x,y in zip(urllist,responses):
+        #instance() method works like a comparison operator
+        if isinstance(y, Exception): 
+            print('[+] An Error Occurred!')
+            pass
         if y in [200,301]:
             print("\033[0;32m",x , " " + "-> " + "status:" , y ,"\033[00m")
         if y in [403]:
             print("\033[0;31m",x , " " + "-> " + "status:" , y ,"\033[00m")
+
+    #footer
     print('''
 ==========================================================================================
        DIRECTORY FUZZING COMPLETED
@@ -53,35 +64,44 @@ async def directory_search(address,wordlist):
 ''')
 
 
+def main():
+    if sys.hexversion >= 0x03080000:
+        #clearing the screen
+        clearscreen()
 
-if __name__=="__main__":
+        #banner
+        loading_screen()
 
-    clearscreen()
-    loading_screen()
 
-    #argv
-    #target_url=sys.argv[1]
-    #target_wordlist=sys.argv[2]
+        #cli input
+        try:
+            arguments=sys.argv[1:]
+            args,null=getopt.getopt(arguments,"u:w:",["url=","wordlist="])
 
-    arguments=sys.argv[1:]
+            for x,y in args:
+                if x in ['-u','--url']:
+                    target_url=y
+                if x in ['-w','--wordlist']:
+                    target_wordlist=y
 
-    try:
-        args,null=getopt.getopt(arguments,"u:w:",["url=","wordlist="])
-        for x,y in args:
-            if x in ['-u','--url']:
-                target_url=y
-            if x in ['-w','--wordlist']:
-                target_wordlist=y
             
-    except:
-        print("\033[0;31m[#] Error Encounted!\033[00m")
+        except:
+            print("\033[0;31m[#] Error Encounted!\033[00m")
     
-    print('''
+        print('''
 ==========================================================================================
     \n\033[0;34m[#] Target= \033[1;31m{}\033[0;34m\n[#] Wordlist= \033[1;31m{}\033[0;34m\n\033[00m
 ==========================================================================================\n
 '''.format(target_url,target_wordlist))
     
     
-    #directory_search(address,wordlist)
-    asyncio.run(directory_search(target_url,target_wordlist)) #asyncio
+        #directory_search(address,wordlist)
+        asyncio.run(directory_search(target_url,target_wordlist)) #asyncio
+    
+    else:
+        sys.exit('[+] Required Python Version > 3.8!')
+
+
+if __name__=="__main__":
+    #main function    
+    main()
