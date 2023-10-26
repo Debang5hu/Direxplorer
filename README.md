@@ -12,18 +12,15 @@ It works well with small wordlists (about 14000 words);
 ![Screenshot (48)](https://github.com/Debang5hu/Direxplorer/assets/114200360/1d3d4732-e9ea-4cc3-b187-3b4b4b93e508)  
 
 
-
 <h3>Next update:</h3>  
 
 1.In the next update I will fix the error handling with large wordlists  
-
 
 Built with:  
 Python v3.11.1  
 PS: you need python 3.x to compile direxplorer  
 
 ========================================================  
-=====================================
 <h3>Installing</h3>  
 
 Linux:  
@@ -41,7 +38,6 @@ pip install -r requirements.txt
 python3 direxplorer.py  
 
 ============================================  
-==============================
 
 Termux:  
 =========  
@@ -61,11 +57,10 @@ cd Direxplorer
 #install the module required  
 pip install -r requirements.txt  
 
-#hen run the tool  
+#then run the tool  
 python3 direxplorer.py  
 
 ====================================================  
-=================================  
 
 windows:  
 =========  
@@ -86,20 +81,10 @@ cd Direxplorer
 python direxplorer.py  
 
 ======================================================  
-======================  
-
-
 <h3>Demo:</h3>  
 
+https://github.com/Debang5hu/Direxplorer/assets/114200360/5a2a72ee-5f10-4cef-bfb1-f024aa3495d6  
 
-
-https://github.com/Debang5hu/Direxplorer/assets/114200360/10203622-ad83-4dec-9aef-1d0752a9f132  
-
-
-left one: Direxplorer(took about 30 seconds to scan the entire wordlists)  
-right one: Gobuster  
-
-PS:I use both of them  
 
 Give Direxplorer a try will love it
 
