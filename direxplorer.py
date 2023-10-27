@@ -6,15 +6,11 @@ try:
     from loading_screen import loading_screen
     import asyncio
     import aiohttp
+    from time import sleep
 except:
     print('[!] Module not found!')
 
 
-def clearscreen():
-    if platform.system()=="Windows":
-        os.system("cls")
-    else:
-        os.system("clear")
 
 
 async def fetch_response_status(session,url):
@@ -23,7 +19,7 @@ async def fetch_response_status(session,url):
             return response.status
     except:
         print("\033[1;31m[!] check the URL\033[00m")
-        return
+        return  #this keyword saved a lot of errors
 
 
 async def directory_search(address,wordlist):
@@ -38,9 +34,10 @@ async def directory_search(address,wordlist):
                 except:
                     pass
     except:
-        print("\033[1;31m[!] check the Path of the Wordlist file\033[00m")
+        print("\033[1;31m[!] check the Path of the Wordlist\033[00m")
         return
     
+    #here where the concept starts
     async with aiohttp.ClientSession() as session:
         search=[fetch_response_status(session,url) for url in urllist]
         responses=await asyncio.gather(*search)
@@ -58,17 +55,14 @@ async def directory_search(address,wordlist):
 
     #footer
     print('''
-==========================================================================================
-       DIRECTORY FUZZING COMPLETED
-==========================================================================================
+===========================================================================
+DIRECTORY FUZZING COMPLETED
+===========================================================================
 ''')
 
 
 def main():
     if sys.hexversion >= 0x03080000:
-        #clearing the screen
-        clearscreen()
-
         #banner
         loading_screen()
 
@@ -89,9 +83,9 @@ def main():
             print("\033[0;31m[#] Error Encounted!\033[00m")
     
         print('''
-==========================================================================================
-    \n\033[0;34m[#] Target= \033[1;31m{}\033[0;34m\n[#] Wordlist= \033[1;31m{}\033[0;34m\n\033[00m
-==========================================================================================\n
+===========================================================================
+\033[0;34m[#] Target: \033[1;31m{}\033[0;34m\n[#] Wordlist: \033[1;31m{}\033[0;34m\033[00m
+===========================================================================
 '''.format(target_url,target_wordlist))
     
     
