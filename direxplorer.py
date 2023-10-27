@@ -1,12 +1,10 @@
 #!/bin/bash/python3
 
 try:
-    import platform
-    import os,sys,getopt
+    import sys,getopt
     from loading_screen import loading_screen
     import asyncio
     import aiohttp
-    from time import sleep
 except:
     print('[!] Module not found!')
 
