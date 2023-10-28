@@ -1,13 +1,26 @@
 #!/bin/bash/python3
 
+# _*_ coding: utf-8 _*_
+
+#only shows the 200 and 301 directories
+#usage [python3 direxplorer.py -w /usr/share/wordlists/dirb/common.txt -u http://www.example.com]
+
 try:
     import sys,getopt
-    from loading_screen import loading_screen
     import asyncio
     import aiohttp
 except:
     print('[!] Module not found!')
 
+def loading_screen():
+   print('''
+ ____________________
+| Direxplorer v:0.1  |
+  ===================
+    \t\033[0;34mWeb Directory Scanner\033[00m made in \033[0;34mPython\033[00m : \033[0;34m@Debang5hu\033[00m
+
+''')
+    
 
 
 
@@ -15,8 +28,13 @@ async def fetch_response_status(session,url):
     try:
         async with session.get(url) as response:
             return response.status
-    except:
-        print("\033[1;31m[!] check the URL\033[00m")
+    
+    except TimeoutError:
+        print("\033[1;31m[!] Timeout Error!\033[00m")
+        return
+    
+    except aiohttp.ClientError as e:
+        print("\033[1;31m[!] Error while fetching {url}: {e}\033[00m")
         return  #this keyword saved a lot of errors
 
 
@@ -46,10 +64,10 @@ async def directory_search(address,wordlist):
         if isinstance(y, Exception): 
             print('[+] An Error Occurred!')
             pass
+
+        # ok: 200  redirect: 301 (http status code)
         if y in [200,301]:
             print("\033[0;32m",x , " " + "-> " + "status:" , y ,"\033[00m")
-        if y in [403]:
-            print("\033[0;31m",x , " " + "-> " + "status:" , y ,"\033[00m")
 
     #footer
     print('''
