@@ -1,14 +1,18 @@
-#!/bin/bash/python3
+#!/usr/bin/python3
 
 # _*_ coding: utf-8 _*_
 
 #only shows the 200 and 301 directories
-#usage [python3 direxplorer.py -w /usr/share/wordlists/dirb/common.txt -u http://www.example.com]
+#usage [sudo python3 direxplorer.py -w /usr/share/wordlists/dirb/common.txt -u http://www.example.com]
+#works better with sudo permission
+
+#to do: to fetch the redirected url
 
 try:
     import sys,getopt
     import asyncio
     import aiohttp
+    from os import getuid
 except:
     print('[!] Module not found!')
 
@@ -17,24 +21,31 @@ def loading_screen():
  ____________________
 | Direxplorer v:0.1  |
   ===================
-    \t\033[0;34mWeb Directory Scanner\033[00m made in \033[0;34mPython\033[00m : \033[0;34m@Debang5hu\033[00m
-
-''')
+    \t\t-@Debang5hu''')
     
-
-
-
 async def fetch_response_status(session,url):
     try:
-        async with session.get(url) as response:
-            return response.status
+        async with session.get(url,allow_redirects=False) as response:
+            if response.status == 302:
+                # Handle redirects
+                redirect_location = response.headers.get('location', '')
+                if redirect_location.startswith(('http://', 'https://')):
+                    # Redirect to HTTP/HTTPS, follow the redirect
+                    return await fetch_response_status(session, redirect_location)
+                else:
+                    # Handle non-HTTP/HTTPS redirects as needed
+                    print(f"\033[1;31m[!] Redirected to non-HTTP/HTTPS protocol: {redirect_location}\033[00m")
+                    return None
+            else:
+                return response.status
     
     except TimeoutError:
-        print("\033[1;31m[!] Timeout Error!\033[00m")
+        print("\033[1;31m[!] Timeout!\033[00m")
         return
+        
     
     except aiohttp.ClientError as e:
-        print("\033[1;31m[!] Error while fetching {url}: {e}\033[00m")
+        print(f"\033[1;31m[!] Error while fetching {url}: {e}\033[00m")
         return  #this keyword saved a lot of errors
 
 
@@ -57,17 +68,19 @@ async def directory_search(address,wordlist):
     async with aiohttp.ClientSession() as session:
         search=[fetch_response_status(session,url) for url in urllist]
         responses=await asyncio.gather(*search)
-
-    
+ 
     for x,y in zip(urllist,responses):
-        #instance() method works like a comparison operator
+        #isinstance() method works like a comparison operator
         if isinstance(y, Exception): 
             print('[+] An Error Occurred!')
             pass
 
         # ok: 200  redirect: 301 (http status code)
         if y in [200,301]:
-            print("\033[0;32m",x , " " + "-> " + "status:" , y ,"\033[00m")
+            if y == 200:
+                print(x ,"  (status:\033[0;32m",y,"\033[00m)")
+            elif y == 301:
+                print(x ,"  (status:\033[0;35m",y,"\033[00m)")
 
     #footer
     print('''
@@ -76,12 +89,10 @@ DIRECTORY FUZZING COMPLETED
 ===========================================================================
 ''')
 
-
 def main():
     if sys.hexversion >= 0x03080000:
         #banner
         loading_screen()
-
 
         #cli input
         try:
@@ -93,17 +104,15 @@ def main():
                     target_url=y
                 if x in ['-w','--wordlist']:
                     target_wordlist=y
-
-            
+     
         except:
             print("\033[0;31m[#] Error Encounted!\033[00m")
-    
+
         print('''
 ===========================================================================
-\033[0;34m[#] Target: \033[1;31m{}\033[0;34m\n[#] Wordlist: \033[1;31m{}\033[0;34m\033[00m
+\033[0;34m[#] Target: \033[0;31m{}\033[0;34m\n[#] Wordlist: \033[0;31m{}\033[0;34m\033[00m
 ===========================================================================
 '''.format(target_url,target_wordlist))
-    
     
         #directory_search(address,wordlist)
         asyncio.run(directory_search(target_url,target_wordlist)) #asyncio
@@ -114,4 +123,7 @@ def main():
 
 if __name__=="__main__":
     #main function    
-    main()
+    if getuid() == 0:
+        main()
+    else:
+        print('\033[0;31m[+] Sudo Permission Requires!\033[0m')
